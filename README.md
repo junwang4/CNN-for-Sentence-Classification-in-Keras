@@ -15,3 +15,9 @@ For "CNN-rand" and "CNN-non-static" gets to 88-90%, and "CNN-static" - 85%
 
 * The [Keras](http://keras.io/) Deep Learning library and most recent [Theano](http://deeplearning.net/software/theano/install.html#install) backend should be installed. You can use pip for that. 
 Not tested with TensorFlow, but should work.
+
+## NOTE
+In the original paper by Kim, the word embeddings are from [GoogleNews-vectors-negative300.bin](https://code.google.com/archive/p/word2vec/).
+But in [Alexander Rakhli's Keras-based implementation](https://github.com/alexander-rakhlin/CNN-for-Sentence-Classification-in-Keras),
+the word embeddings are generated on the fly using the Gensim.
+To replicate Kim's result, this fork will use the GoogleNews-vectors-negative300.bin
