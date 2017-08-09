@@ -59,6 +59,24 @@ Saving Word2Vec model '50features_1minwords_10context'
 Train on 25000 samples, validate on 25000 samples
 Epoch 1/10
 145s - loss: 0.6196 - acc: 0.6223 - val_loss: 0.3755 - val_acc: 0.8437
+Epoch 2/10
+147s - loss: 0.3605 - acc: 0.8418 - val_loss: 0.2942 - val_acc: 0.8841
+Epoch 3/10
+150s - loss: 0.2974 - acc: 0.8755 - val_loss: 0.2847 - val_acc: 0.8820
+Epoch 4/10
+149s - loss: 0.2733 - acc: 0.8872 - val_loss: 0.2662 - val_acc: 0.8928
+Epoch 5/10
+149s - loss: 0.2505 - acc: 0.8983 - val_loss: 0.2625 - val_acc: 0.8921
+Epoch 6/10
+154s - loss: 0.2402 - acc: 0.9015 - val_loss: 0.2622 - val_acc: 0.8922
+Epoch 7/10
+153s - loss: 0.2344 - acc: 0.9055 - val_loss: 0.2626 - val_acc: 0.8913
+Epoch 8/10
+154s - loss: 0.2197 - acc: 0.9131 - val_loss: 0.2626 - val_acc: 0.8906
+Epoch 9/10
+153s - loss: 0.2146 - acc: 0.9128 - val_loss: 0.2652 - val_acc: 0.8890
+Epoch 10/10
+150s - loss: 0.2053 - acc: 0.9186 - val_loss: 0.2659 - val_acc: 0.8905
 </pre>
 
 
