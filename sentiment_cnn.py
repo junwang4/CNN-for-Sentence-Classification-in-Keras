@@ -20,8 +20,12 @@ Differences from original article:
 """
 
 import numpy as np
-import data_helpers
+import os
+import pickle
+import gensim
 from w2v import train_word2vec
+
+import data_helpers
 
 from keras.models import Sequential, Model
 from keras.layers import Dense, Dropout, Flatten, Input, MaxPooling1D, Convolution1D, Embedding
@@ -35,15 +39,26 @@ np.random.seed(0)
 # Model type. See Kim Yoon's Convolutional Neural Networks for Sentence Classification, Section 3
 model_type = "CNN-non-static"  # CNN-rand|CNN-non-static|CNN-static
 
+embedding_mode = "gensim_on_the_fly"
+embedding_mode = "pretrained_googlenews"
+
 # Data source
 data_source = "keras_data_set"  # keras_data_set|local_dir
+data_source = "local_dir"
 
 # Model Hyperparameters
-embedding_dim = 50
-filter_sizes = (3, 8)
-num_filters = 10
-dropout_prob = (0.5, 0.8)
-hidden_dims = 50
+if data_source == "keras_data_set":
+    embedding_dim = 50
+    filter_sizes = (3, 8)
+    num_filters = 10
+    dropout_prob = (0.5, 0.8)
+    hidden_dims = 50
+else: # local_dir : cornell movie review data
+    embedding_dim = 300
+    filter_sizes = (3,4,5)
+    num_filters = 100
+    dropout_prob = (0.5, 0.5)
+    hidden_dims = 100
 
 # Training parameters
 batch_size = 64
@@ -75,7 +90,7 @@ def load_data(data_source):
         vocabulary_inv[0] = "<PAD/>"
     else:
         x, y, vocabulary, vocabulary_inv_list = data_helpers.load_data()
-        vocabulary_inv = {key: value for key, value in enumerate(vocabulary_inv_list)}
+        vocabulary_inv = {rank: word for rank, word in enumerate(vocabulary_inv_list)}
         y = y.argmax(axis=1)
 
         # Shuffle data
@@ -106,7 +121,27 @@ print("Vocabulary Size: {:d}".format(len(vocabulary_inv)))
 # Prepare embedding layer weights and convert inputs for static model
 print("Model type is", model_type)
 if model_type in ["CNN-non-static", "CNN-static"]:
-    embedding_weights = train_word2vec(np.vstack((x_train, x_test)), vocabulary_inv, num_features=embedding_dim,
+    if embedding_mode == "pretrained_googlenews":
+        pretrained_fpath_saved = os.path.expanduser("models/googlenews_extracted.pl")
+        if os.path.exists(pretrained_fpath_saved):
+            with open(pretrained_fpath_saved, 'r') as f:
+                embedding_weights = pickle.load(f)
+        else:
+            embedding_weights = {}
+            pretrained_fpath = os.path.expanduser("~/.keras/models/GoogleNews-vectors-negative300.bin")
+            model = gensim.models.KeyedVectors.load_word2vec_format(pretrained_fpath, binary=True)
+            found_cnt = 0
+            for id, word in vocabulary_inv.items():
+                if word in model.vocab:
+                    embedding_weights[id] = model.word_vec(word)
+                    found_cnt += 1
+                else:
+                    embedding_weights[id] = np.random.uniform(-0.25, 0.25, embedding_dim)
+            with open(pretrained_fpath_saved, 'w') as f:
+                pickle.dump(embedding_weights, f)
+        
+    else:
+        embedding_weights = train_word2vec(np.vstack((x_train, x_test)), vocabulary_inv, num_features=embedding_dim,
                                        min_word_count=min_word_count, context=context)
     if model_type == "CNN-static":
         x_train = np.stack([np.stack([embedding_weights[word] for word in sentence]) for sentence in x_train])
