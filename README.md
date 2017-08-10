@@ -124,18 +124,52 @@ Epoch 10/10 4s - loss: 0.2434 - acc: 0.9008 - val_loss: 0.2744 - val_acc: 0.8862
 
 
 
-### Running the local data (Cornell Movie Review Dataset) with Gensim-generated word vectors
+### Running the local data (Cornell Movie Review Dataset) with GoogleNews embedding word vectors
 - modify `sentiment_cnn.py`
 ```python
 data_source = "local_dir"
+embedding_dim = 300
+filter_sizes = (3,4,5)
+num_filters = 100
+dropout_prob = (0.5, 0.5)
+hidden_dims = 100
 ```
 
 ```bash
 $ python sentiment_cnn.py
 ```
 
+- I use python 2.7 only -- for python 3.6 it complains: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf3 in position 4645)
+- The training gets overfit quickly for my current setting 
 
-### Running the above data with pretrained GoogleNews w2v
+#### theano
+<pre>
+Epoch 1/10 1s - loss: 0.5797 - acc: 0.6714 - val_loss: 0.4075 - val_acc: 0.8107
+Epoch 2/10 0s - loss: 0.3895 - acc: 0.8242 - val_loss: 0.3988 - val_acc: 0.8182
+Epoch 3/10 0s - loss: 0.2646 - acc: 0.8902 - val_loss: 0.4111 - val_acc: 0.8144
+Epoch 4/10 0s - loss: 0.1664 - acc: 0.9364 - val_loss: 0.4889 - val_acc: 0.8079
+Epoch 5/10 0s - loss: 0.1032 - acc: 0.9590 - val_loss: 0.5561 - val_acc: 0.8022
+Epoch 6/10 0s - loss: 0.0692 - acc: 0.9745 - val_loss: 0.6680 - val_acc: 0.8004
+Epoch 7/10 0s - loss: 0.0489 - acc: 0.9830 - val_loss: 0.7647 - val_acc: 0.8107
+Epoch 8/10 0s - loss: 0.0441 - acc: 0.9842 - val_loss: 0.7942 - val_acc: 0.8097
+Epoch 9/10 0s - loss: 0.0373 - acc: 0.9873 - val_loss: 0.8058 - val_acc: 0.8116
+Epoch 10/10 0s - loss: 0.0198 - acc: 0.9934 - val_loss: 0.9176 - val_acc: 0.8013
+</pre>
+
+#### tensorflow
+<pre>
+Train on 9595 samples, validate on 1067 samples
+Epoch 1/10 3s - loss: 0.5728 - acc: 0.6896 - val_loss: 0.4311 - val_acc: 0.8219
+Epoch 2/10 1s - loss: 0.3802 - acc: 0.8316 - val_loss: 0.4053 - val_acc: 0.8266
+Epoch 3/10 1s - loss: 0.2617 - acc: 0.8875 - val_loss: 0.3940 - val_acc: 0.8285
+Epoch 4/10 1s - loss: 0.1626 - acc: 0.9348 - val_loss: 0.4659 - val_acc: 0.8135
+Epoch 5/10 1s - loss: 0.1073 - acc: 0.9578 - val_loss: 0.5021 - val_acc: 0.8276
+Epoch 6/10 1s - loss: 0.0691 - acc: 0.9731 - val_loss: 0.6242 - val_acc: 0.8276
+Epoch 7/10 1s - loss: 0.0515 - acc: 0.9821 - val_loss: 0.6558 - val_acc: 0.8257
+Epoch 8/10 1s - loss: 0.0442 - acc: 0.9847 - val_loss: 0.6984 - val_acc: 0.8097
+Epoch 9/10 1s - loss: 0.0361 - acc: 0.9867 - val_loss: 0.8203 - val_acc: 0.8163
+Epoch 10/10 1s - loss: 0.0338 - acc: 0.9876 - val_loss: 0.7926 - val_acc: 0.8266
+</pre>
 
 
 

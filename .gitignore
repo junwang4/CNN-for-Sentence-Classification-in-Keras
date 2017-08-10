@@ -40,3 +40,5 @@ nosetests.xml
 weights_file
 models/50features_1minwords_10context
 models/100features_1minwords_10context
+
+models/googlenews_extracted.pl
