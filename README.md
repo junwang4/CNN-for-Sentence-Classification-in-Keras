@@ -6,7 +6,7 @@
 - Inspired by Denny Britz's blog article [Implementing a CNN for Text Classification in TensorFlow](http://www.wildml.com/2015/12/implementing-a-cnn-for-text-classification-in-tensorflow/).
 
 ## Motivation
-- Kim's version is based on Theano version 0.7, which is now outdated (for example, backend changed from `device=gpu` to `device=cuda`). I tried to create a virtual env for python 2.7 and theano 0.7, but it just doesn't work for GPU, and I think that may be related to the gpuarray as the new gpu backend. 
+- Kim's version is based on Theano version 0.7, which is now outdated. I tried to create a virtual env for python 2.7 and theano 0.7, but it just doesn't work for GPU, and I guess that may be related to using gpuarray as the new gpu backend. It still works for the CPU version, but it is very slow to run -- each epoch takes ~240 seconds or 4 minutes with the settings given below (which is 100 times slower than the GPU mode).
 - In the original work by Kim, the pretrained word vectors are [GoogleNews-vectors-negative300.bin](https://code.google.com/archive/p/word2vec/).
 But in [Alexander Rakhli's Keras-based implementation](https://github.com/alexander-rakhlin/CNN-for-Sentence-Classification-in-Keras),
 the word vectors are generated on the fly using the [Gensim](https://radimrehurek.com/gensim/).
