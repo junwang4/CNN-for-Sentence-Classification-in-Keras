@@ -141,6 +141,7 @@ $ python sentiment_cnn.py
 
 - I use python 2.7 only -- for python 3.6 it complains: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf3 in position 4645)
 - The training gets overfit quickly for my current setting 
+- Theano is fast but is pretty slow for initialization.
 
 #### theano
 <pre>
