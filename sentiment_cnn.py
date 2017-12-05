@@ -21,6 +21,7 @@ Differences from original article:
 
 import numpy as np
 import os
+import sys
 import pickle
 import gensim
 from w2v import train_word2vec
@@ -122,9 +123,9 @@ print("Vocabulary Size: {:d}".format(len(vocabulary_inv)))
 print("Model type is", model_type)
 if model_type in ["CNN-non-static", "CNN-static"]:
     if embedding_mode == "pretrained_googlenews":
-        pretrained_fpath_saved = os.path.expanduser("models/googlenews_extracted.pl")
+        pretrained_fpath_saved = os.path.expanduser("models/googlenews_extracted-python{}.pl".format(sys.version_info.major))
         if os.path.exists(pretrained_fpath_saved):
-            with open(pretrained_fpath_saved, 'r') as f:
+            with open(pretrained_fpath_saved, 'rb') as f:
                 embedding_weights = pickle.load(f)
         else:
             embedding_weights = {}
@@ -137,7 +138,7 @@ if model_type in ["CNN-non-static", "CNN-static"]:
                     found_cnt += 1
                 else:
                     embedding_weights[id] = np.random.uniform(-0.25, 0.25, embedding_dim)
-            with open(pretrained_fpath_saved, 'w') as f:
+            with open(pretrained_fpath_saved, 'wb') as f:
                 pickle.dump(embedding_weights, f)
         
     else:

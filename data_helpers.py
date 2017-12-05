@@ -1,5 +1,5 @@
 import numpy as np
-import re
+import re, sys
 import itertools
 from collections import Counter
 
@@ -35,9 +35,13 @@ def load_data_and_labels():
     Returns split sentences and labels.
     """
     # Load data from files
-    positive_examples = list(open("./data/rt-polarity.pos").readlines())
+    if sys.version_info.major == 3:
+        positive_examples = list(open("./data/rt-polarity.pos", encoding ='ISO-8859-1').readlines())
+        negative_examples = list(open("./data/rt-polarity.neg", encoding ='ISO-8859-1').readlines())
+    else:
+        positive_examples = list(open("./data/rt-polarity.pos").readlines())
+        negative_examples = list(open("./data/rt-polarity.neg").readlines())
     positive_examples = [s.strip() for s in positive_examples]
-    negative_examples = list(open("./data/rt-polarity.neg").readlines())
     negative_examples = [s.strip() for s in negative_examples]
     # Split by words
     x_text = positive_examples + negative_examples
