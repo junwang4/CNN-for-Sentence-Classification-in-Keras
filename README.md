@@ -14,6 +14,16 @@ To replicate Kim's result, this fork will use the GoogleNews word vectors.
 
 ## Usage
 
+### Settings:
+- GPU: GTX 1080 Ti
+- CPU: i7-6850K
+- Ubuntu 16.04
+- Nvidia Driver 381.22, CUDA 8.0, cuDNN 6.0
+- Keras 2.0.5 (I tried Keras 2.0.2, and turns out it has a bug when loading IMDB data)
+- Tensorflow 1.2
+- Theano 0.9  (which is about 3x faster than tensorflow !!!)
+- Python 2.7 or 3.6
+
 
 ### Running the local data (Cornell Movie Review Dataset) with GoogleNews embedding word vectors
 
@@ -32,23 +42,10 @@ hidden_dims = 100
 $ python sentiment_cnn.py
 ```
 
-- Both python 2.7 and python 3.6 are now working (the pretrained word vectors are different from python 2 and python 3)
 - The training gets overfit quickly for my current setting 
 - Theano is fast but is pretty slow for initialization.
 
-#### theano
-<pre>
-Epoch 1/10 1s - loss: 0.5797 - acc: 0.6714 - val_loss: 0.4075 - val_acc: 0.8107
-Epoch 2/10 0s - loss: 0.3895 - acc: 0.8242 - val_loss: 0.3988 - val_acc: 0.8182
-Epoch 3/10 0s - loss: 0.2646 - acc: 0.8902 - val_loss: 0.4111 - val_acc: 0.8144
-Epoch 4/10 0s - loss: 0.1664 - acc: 0.9364 - val_loss: 0.4889 - val_acc: 0.8079
-Epoch 5/10 0s - loss: 0.1032 - acc: 0.9590 - val_loss: 0.5561 - val_acc: 0.8022
-Epoch 6/10 0s - loss: 0.0692 - acc: 0.9745 - val_loss: 0.6680 - val_acc: 0.8004
-Epoch 7/10 0s - loss: 0.0489 - acc: 0.9830 - val_loss: 0.7647 - val_acc: 0.8107
-Epoch 8/10 0s - loss: 0.0441 - acc: 0.9842 - val_loss: 0.7942 - val_acc: 0.8097
-Epoch 9/10 0s - loss: 0.0373 - acc: 0.9873 - val_loss: 0.8058 - val_acc: 0.8116
-Epoch 10/10 0s - loss: 0.0198 - acc: 0.9934 - val_loss: 0.9176 - val_acc: 0.8013
-</pre>
+### Results
 
 #### tensorflow
 <pre>
@@ -63,6 +60,20 @@ Epoch 7/10 1s - loss: 0.0515 - acc: 0.9821 - val_loss: 0.6558 - val_acc: 0.8257
 Epoch 8/10 1s - loss: 0.0442 - acc: 0.9847 - val_loss: 0.6984 - val_acc: 0.8097
 Epoch 9/10 1s - loss: 0.0361 - acc: 0.9867 - val_loss: 0.8203 - val_acc: 0.8163
 Epoch 10/10 1s - loss: 0.0338 - acc: 0.9876 - val_loss: 0.7926 - val_acc: 0.8266
+</pre>
+
+#### theano
+<pre>
+Epoch 1/10 1s - loss: 0.5797 - acc: 0.6714 - val_loss: 0.4075 - val_acc: 0.8107
+Epoch 2/10 0s - loss: 0.3895 - acc: 0.8242 - val_loss: 0.3988 - val_acc: 0.8182
+Epoch 3/10 0s - loss: 0.2646 - acc: 0.8902 - val_loss: 0.4111 - val_acc: 0.8144
+Epoch 4/10 0s - loss: 0.1664 - acc: 0.9364 - val_loss: 0.4889 - val_acc: 0.8079
+Epoch 5/10 0s - loss: 0.1032 - acc: 0.9590 - val_loss: 0.5561 - val_acc: 0.8022
+Epoch 6/10 0s - loss: 0.0692 - acc: 0.9745 - val_loss: 0.6680 - val_acc: 0.8004
+Epoch 7/10 0s - loss: 0.0489 - acc: 0.9830 - val_loss: 0.7647 - val_acc: 0.8107
+Epoch 8/10 0s - loss: 0.0441 - acc: 0.9842 - val_loss: 0.7942 - val_acc: 0.8097
+Epoch 9/10 0s - loss: 0.0373 - acc: 0.9873 - val_loss: 0.8058 - val_acc: 0.8116
+Epoch 10/10 0s - loss: 0.0198 - acc: 0.9934 - val_loss: 0.9176 - val_acc: 0.8013
 </pre>
 
 
@@ -96,17 +107,6 @@ Then run
 ```bash
 $ python sentiment_cnn.py
 ```
-### Results
-
-Settings:
-- GPU: GTX 1080 Ti
-- CPU: i7-6850K
-- Ubuntu 16.04
-- Nvidia Driver 381.22, CUDA 8.0, cuDNN 6.0
-- Keras 2.0.5 (I tried Keras 2.0.2, and turns out it has a bug when loading IMDB data)
-- Tensorflow 1.2
-- Theano 0.9  (which is about 3x faster than tensorflow !!!)
-- Python 2.7 or 3.6
 
 #### Python 2.7 / Theano
 <pre>
